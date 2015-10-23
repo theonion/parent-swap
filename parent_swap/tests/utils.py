@@ -6,7 +6,7 @@ from parent_swap import swap
 from simple_app import models
 
 
-def drop_database(table_name):
+def drop_table(table_name):
     cursor = connection.cursor()
     cursor.execute(
         '''DROP TABLE {};'''.format(table_name)
@@ -22,6 +22,9 @@ class AppReloadTestCase(TestCase):
         reload(swap)
         reload(models)
         super(AppReloadTestCase, self).setUp()
+
         # We're gonna have to re-run migrations since we want to start in a new environment.
-        drop_database(models.SimpleObject._meta.db_table)
-        call_command('migrate', verbosity=0)
+        if getattr(self, 'drop_table', True):
+            drop_table(models.SimpleObject._meta.db_table)
+        if getattr(self, 'migrate', True):
+            call_command('migrate', verbosity=0)
