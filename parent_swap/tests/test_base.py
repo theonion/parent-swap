@@ -21,7 +21,7 @@ class TestSimpleObject(AppReloadTestCase):
         self.assertTrue(models.SimpleObject.objects.filter(id=simple.id))
 
 
-@override_settings(DEFAULT_BASE_CLASS='parent_swap.tests.simple_app.parent_models.SimpleParent')
+@override_settings(DEFAULT_BASE_CLASS='parent_swap.tests.parent_app.models.SimpleParent')
 class TestConfiguredBaseClass(AppReloadTestCase):
     """
     Tests swappable BaseClass configured: SimpleParent
@@ -31,3 +31,8 @@ class TestConfiguredBaseClass(AppReloadTestCase):
         self.assertEqual(len(bases), 1)
         base_model = bases[0]
         self.assertEqual(base_model.__name__, 'SimpleParent')
+
+    def test_create(self):
+        simple = models.SimpleObject.objects.create(foo='hey hey hey', bar='no no no')
+        simple.save()
+        self.assertTrue(models.SimpleObject.objects.filter(id=simple.id))

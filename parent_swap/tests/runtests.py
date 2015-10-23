@@ -23,6 +23,7 @@ EXTERNAL_APPS = [
 ]
 
 INTERNAL_APPS = [
+    'parent_swap.tests.parent_app',
     'parent_swap.tests.simple_app'
 ]
 
