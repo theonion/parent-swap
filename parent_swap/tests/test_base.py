@@ -1,19 +1,43 @@
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
-from simple_app.models import SimpleObject
+from parent_swap import swap
+from simple_app import models
 
 
-class TestSimpleObject(TestCase):
+class AppReloadTestCase(TestCase):
     """
-    Tests swappable base class object models
+    Reloads the relevant python modules to test the swappable models in isolation.
     """
-    def test_base_no_base_simpleobject(self):
-        bases = SimpleObject.__bases__
+
+    def setUp(self):
+        reload(swap)
+        reload(models)
+        super(AppReloadTestCase, self).setUp()
+
+
+class TestSimpleObject(AppReloadTestCase):
+    """
+    Tests swappable BaseClass unconfigured: django.db.models.Model
+    """
+    def test_base(self):
+        bases = models.SimpleObject.__bases__
         self.assertEqual(len(bases), 1)
         base_model = bases[0]
         self.assertEqual(base_model.__name__, 'Model')
 
-    def test_create_no_base_simpleobject(self):
-        simple = SimpleObject.objects.create(foo='hey hey hey')
+    def test_create(self):
+        simple = models.SimpleObject.objects.create(foo='hey hey hey')
         simple.save()
-        self.assertTrue(SimpleObject.objects.filter(id=simple.id))
+        self.assertTrue(models.SimpleObject.objects.filter(id=simple.id))
+
+
+@override_settings(DEFAULT_BASE_CLASS='parent_swap.tests.simple_app.parent_models.SimpleParent')
+class TestConfiguredBaseClass(AppReloadTestCase):
+    """
+    Tests swappable BaseClass configured: SimpleParent
+    """
+    def test_base(self):
+        bases = models.SimpleObject.__bases__
+        self.assertEqual(len(bases), 1)
+        base_model = bases[0]
+        self.assertEqual(base_model.__name__, 'SimpleParent')
