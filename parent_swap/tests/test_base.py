@@ -1,18 +1,8 @@
-from django.test import TestCase, override_settings
+from django.test import override_settings
 
-from parent_swap import swap
 from simple_app import models
 
-
-class AppReloadTestCase(TestCase):
-    """
-    Reloads the relevant python modules to test the swappable models in isolation.
-    """
-
-    def setUp(self):
-        reload(swap)
-        reload(models)
-        super(AppReloadTestCase, self).setUp()
+from .utils import AppReloadTestCase
 
 
 class TestSimpleObject(AppReloadTestCase):
