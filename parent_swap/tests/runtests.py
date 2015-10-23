@@ -34,7 +34,7 @@ SECRET_KEY = '12345'
 
 if not settings.configured:
     settings.configure(
-        DEFAULT_BASE_CLASS=DEFAULT_BASE_CLASS,
+        # DEFAULT_BASE_CLASS=DEFAULT_BASE_CLASS,
         DATABASES={
             "default": {
                 "ENGINE": "django.db.backends.sqlite3",
@@ -47,7 +47,6 @@ if not settings.configured:
             os.path.join(os.path.dirname(__file__), '../templates'),
         ),
     )
-    # sys.path.insert(0, SWAP_DIR)
 
 
 def main():
