@@ -1,6 +1,6 @@
 from django.db import models
 
-from parent_app.models import SimpleParent
+from parent_swap.tests.parent_app.models import SimpleParent
 
 from .utils import AppReloadTestCase
 from ..fields import (

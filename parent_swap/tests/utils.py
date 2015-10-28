@@ -1,9 +1,11 @@
+from imp import reload
+
 from django.db import connection
 from django.core.management import call_command
 from django.test import TestCase
 
 from parent_swap import swap
-from simple_app import models
+from parent_swap.tests.simple_app import models
 
 
 def drop_table(table_name):

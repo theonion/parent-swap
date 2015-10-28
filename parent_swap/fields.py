@@ -1,6 +1,8 @@
 from django.apps import apps
 from django.db import models
 
+import six
+
 from .swap import _get_class_object
 
 
@@ -8,7 +10,7 @@ def validate_or_get_model(cls):
     """
     Returns the class iff the reference to the model is string/unicode
     """
-    if isinstance(cls, str) or isinstance(cls, unicode):
+    if isinstance(cls, six.string_types) or isinstance(cls, six.text_type):
         try:
             return apps.get_model(cls)
         except:

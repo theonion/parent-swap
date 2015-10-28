@@ -3,5 +3,6 @@
 ##########
 *.pyc
 *.egg-info
+*.eggs
 *.sqlite3
 dist

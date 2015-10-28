@@ -1,6 +1,6 @@
 from django.test import override_settings
 
-from simple_app import models
+from parent_swap.tests.simple_app import models
 
 from .utils import AppReloadTestCase
 
