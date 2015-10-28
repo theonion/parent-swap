@@ -36,5 +36,8 @@ def get_swap_field(cls):
     """
     Returns the appropriately configured field for a swapped model in a migration
     """
+    if isinstance(cls, str):
+        cls = _get_class_object(cls)
     ptr = get_cls_ptr(cls)
-    return (ptr,)
+    rel = get_one_to_one_field_config(cls)
+    return (ptr, rel)
