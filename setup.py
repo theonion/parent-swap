@@ -12,9 +12,19 @@ os.chdir(
     )
 )
 
+
 install_requires = [
     "django>=1.7,<1.9"
 ]
+
+
+def get_packages(package):
+    """
+    Return root package and all sub-packages.
+    """
+    return [dirpath
+            for dirpath, dirnames, filenames in os.walk(package)
+            if os.path.exists(os.path.join(dirpath, '__init__.py'))]
 
 setup(
     name=name,
@@ -26,7 +36,5 @@ setup(
     include_package_data=True,
     install_requires=install_requires,
     test_suite='parent_swap.tests.runtests.main',
-    packages=[
-        'parent_swap'
-    ],
+    packages=get_packages('parent_swap'),
 )
