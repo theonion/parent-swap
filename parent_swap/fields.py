@@ -8,7 +8,7 @@ from .swap import get_class_object
 
 def validate_or_get_model(cls):
     """
-    Returns the class iff the reference to the model is string/unicode
+    Returns the class if the reference to the model is string/unicode
     """
     if isinstance(cls, six.string_types) or isinstance(cls, six.text_type):
         try:
@@ -17,6 +17,13 @@ def validate_or_get_model(cls):
             return get_class_object(cls)
     else:
         return cls
+
+
+def is_base_model(cls):
+    """
+    Returns Boolean response evaluating if the provided class is django.db.models.Model
+    """
+    return bool(cls == models.Model)
 
 
 def get_cls_ptr(cls):
@@ -51,6 +58,15 @@ def get_swap_field(cls):
     Returns the appropriately configured field for a swapped model in a migration
     """
     cls = validate_or_get_model(cls)
-    ptr = get_cls_ptr(cls)
-    rel = get_one_to_one_field_config(cls)
-    return (ptr, rel)
+    if is_base_model(cls):
+        ptr = 'id'
+        field = models.AutoField(
+            verbose_name='ID',
+            serialize=False,
+            auto_created=True,
+            primary_key=True
+        )
+    else:
+        ptr = get_cls_ptr(cls)
+        field = get_one_to_one_field_config(cls)
+    return (ptr, field)

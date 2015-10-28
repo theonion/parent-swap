@@ -51,31 +51,25 @@ class TestMigrationSwap(AppReloadTestCase):
         self.assertEqual(field.related_model, 'parent_app.SimpleParent')
 
     def test_get_swap_field(self):
-        expected_onetoone = models.OneToOneField(
-            parent_link=True,
-            auto_created=True,
-            primary_key=True,
-            serialize=False,
-            to='parent_app.SimpleParent'
-        )
         ptr_name, onetoone = get_swap_field(SimpleParent)
         self.assertEqual(ptr_name, 'simpleparent_ptr')
-        self.assertEqual(onetoone.auto_created, expected_onetoone.auto_created)
-        self.assertEqual(onetoone.primary_key, expected_onetoone.primary_key)
-        self.assertEqual(onetoone.serialize, expected_onetoone.serialize)
+        self.assertTrue(onetoone.auto_created)
+        self.assertTrue(onetoone.primary_key)
+        self.assertFalse(onetoone.serialize)
         self.assertEqual(onetoone.related_model, 'parent_app.SimpleParent')
 
     def test_get_swap_field_str(self):
-        expected_onetoone = models.OneToOneField(
-            parent_link=True,
-            auto_created=True,
-            primary_key=True,
-            serialize=False,
-            to='parent_app.SimpleParent'
-        )
         ptr_name, onetoone = get_swap_field('parent_swap.tests.parent_app.models.SimpleParent')
         self.assertEqual(ptr_name, 'simpleparent_ptr')
-        self.assertEqual(onetoone.auto_created, expected_onetoone.auto_created)
-        self.assertEqual(onetoone.primary_key, expected_onetoone.primary_key)
-        self.assertEqual(onetoone.serialize, expected_onetoone.serialize)
+        self.assertTrue(onetoone.auto_created)
+        self.assertTrue(onetoone.primary_key)
+        self.assertFalse(onetoone.serialize)
         self.assertEqual(onetoone.related_model, 'parent_app.SimpleParent')
+
+    def test_get_swap_field_django_model(self):
+        ptr_name, field = get_swap_field(models.Model)
+        self.assertEqual(ptr_name, 'id')
+        self.assertEqual(field.verbose_name, 'ID')
+        self.assertFalse(field.serialize)
+        self.assertTrue(field.auto_created)
+        self.assertTrue(field.primary_key)
