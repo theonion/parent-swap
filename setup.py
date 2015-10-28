@@ -14,7 +14,8 @@ os.chdir(
 
 
 install_requires = [
-    "django>=1.7,<1.9"
+    "django>=1.7,<1.9",
+    "six"
 ]
 
 
