@@ -3,7 +3,7 @@ from django.db import models
 
 import six
 
-from .swap import _get_class_object
+from .swap import get_class_object
 
 
 def validate_or_get_model(cls):
@@ -14,7 +14,7 @@ def validate_or_get_model(cls):
         try:
             return apps.get_model(cls)
         except:
-            return _get_class_object(cls)
+            return get_class_object(cls)
     else:
         return cls
 
