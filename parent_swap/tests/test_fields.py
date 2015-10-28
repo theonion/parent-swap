@@ -3,7 +3,7 @@ from django.db import models
 from parent_app.models import SimpleParent
 
 from .utils import AppReloadTestCase
-from ..migrations import (
+from ..fields import (
     get_app_reference, get_cls_ptr, get_swap_field, get_one_to_one_field_config
 )
 
