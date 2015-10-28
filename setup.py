@@ -2,7 +2,7 @@
 import os
 from setuptools import setup
 
-name = 'parent_swap'
+name = 'parent-swap'
 version = '0.0.1'
 
 # allow setup.py to be run from any path
