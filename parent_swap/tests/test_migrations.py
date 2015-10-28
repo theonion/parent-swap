@@ -2,8 +2,10 @@ from django.db import models
 
 from parent_app.models import SimpleParent
 
-from ..migrations import get_cls_ptr, get_swap_field, get_one_to_one_field_config
 from .utils import AppReloadTestCase
+from ..migrations import (
+    get_app_reference, get_cls_ptr, get_swap_field, get_one_to_one_field_config
+)
 
 
 class TestMigrationSwap(AppReloadTestCase):
@@ -15,6 +17,10 @@ class TestMigrationSwap(AppReloadTestCase):
     def test_get_cls_ptr_string(self):
         ptr = get_cls_ptr('parent_swap.tests.parent_app.models.SimpleParent')
         self.assertEquals(ptr, 'simpleparent_ptr')
+
+    def test_get_app_reference(self):
+        ref = get_app_reference(SimpleParent)
+        self.assertEqual(ref, 'parent_app.SimpleParent')
 
     def test_get_one_to_one_field_config(self):
         field = get_one_to_one_field_config(SimpleParent)
