@@ -1,6 +1,6 @@
 from .swap import BaseClass
 
-from .utils import get_applied_migrations
+from .utils import is_base_model, get_applied_migrations
 
 
 def dependency_exists(dependency):
@@ -15,6 +15,8 @@ def get_model_dependency(cls):
     """
     Retrieves the South Migration dependency for a given Model
     """
+    if is_base_model(cls):
+        return None
     initial_migration = '0001_initial.py'
     dependency = (cls._meta.app_label, initial_migration)
     if not dependency_exists(dependency):
