@@ -3,7 +3,7 @@ import os
 from setuptools import setup
 
 name = 'parent-swap'
-version = '0.0.1'
+version = '0.0.2'
 
 # allow setup.py to be run from any path
 os.chdir(
