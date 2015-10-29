@@ -3,7 +3,7 @@ from django.db import models
 
 import six
 
-from .swap import get_class_object
+from .swap import BaseClass, get_class_object
 
 
 def validate_or_get_model(cls):
@@ -70,3 +70,7 @@ def get_swap_field(cls):
         ptr = get_cls_ptr(cls)
         field = get_one_to_one_field_config(cls)
     return (ptr, field)
+
+
+def get_default_swap_field():
+    return get_swap_field(BaseClass)

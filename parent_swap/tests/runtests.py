@@ -8,7 +8,7 @@ from django.test.runner import DiscoverRunner
 DJANGO_DEBUG = os.environ.get('DJANGO_DEBUG', 1)
 SWAP_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
-# DEFAULT_BASE_CLASS = 'parent_swap.tests.simple_app.parent_models.SimpleParent'
+# DEFAULT_BASE_CLASS = 'parent_swap.tests.parent_app.models.SimpleParent'
 
 EXTERNAL_APPS = [
     'django.contrib.admin',
