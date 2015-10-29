@@ -1,5 +1,6 @@
 from django.apps import apps
-from django.db import models
+from django.db import DEFAULT_DB_ALIAS, connections, models
+from django.db.migrations.loader import MigrationLoader
 
 import six
 
