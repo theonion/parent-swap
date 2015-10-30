@@ -19,15 +19,6 @@ def get_model_dependency(cls):
         return None
     initial_migration = '0001_initial.py'
     dependency = (cls._meta.app_label, initial_migration)
-
-    # Removing validation since we are just assuming this exists anyway. Django will tell us.
-
-    # if not dependency_exists(dependency):
-    #     raise KeyError(
-    #         "The dependency '{0}' does not exist for app '{1}'".format(
-    #             cls._meta.app_label, initial_migration
-    #         )
-    #     )
     return dependency
 
 

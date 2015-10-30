@@ -4,7 +4,7 @@ from django.db import connection
 from django.core.management import call_command
 from django.test import TestCase
 
-from parent_swap import fields, swap
+from parent_swap import dependencies, fields, swap
 from parent_swap.tests.simple_app import models
 
 
@@ -23,6 +23,7 @@ class AppReloadTestCase(TestCase):
     def setUp(self):
         reload(swap)
         reload(fields)
+        reload(dependencies)
         reload(models)
         super(AppReloadTestCase, self).setUp()
 
