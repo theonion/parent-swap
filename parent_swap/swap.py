@@ -1,4 +1,3 @@
-from django.apps import apps
 from django.db import models
 from django.conf import settings
 from django.views.generic.detail import DetailView
@@ -17,21 +16,6 @@ def import_class(cls_path, default=None):
         return cls_obj
     except:
         return default
-
-
-# def get_base_model():
-#     default_model_name = getattr(settings, 'DEFAULT_BASE_MODEL', None)
-#     if default_model_name:
-#         try:
-#             sp = default_model_name.split('.')
-#             app_name, cls_name = sp[-2], sp[-1]
-#             app = apps.get_app(app_name, cls_name, None)
-#             base_cls = getattr(app, cls_name, None)
-#             if base_cls:
-#                 return base_cls
-#         except:
-#             pass
-#     return models.Model
 
 
 def get_base_model():

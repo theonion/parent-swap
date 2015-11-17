@@ -5,7 +5,7 @@ from django.core.management import call_command
 from django.test import TestCase
 
 from parent_swap import swap
-from parent_swap.tests.simple_app import models
+from parent_swap.tests.simple_app import models, serializers, views
 
 
 def drop_table(table_name):
@@ -23,6 +23,8 @@ class AppReloadTestCase(TestCase):
     def setUp(self):
         reload(swap)
         reload(models)
+        reload(serializers)
+        reload(views)
         super(AppReloadTestCase, self).setUp()
 
         # We're gonna have to re-run migrations since we want to start in a new environment.
