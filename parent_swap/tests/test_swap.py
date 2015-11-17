@@ -21,7 +21,7 @@ class TestSimpleObject(AppReloadTestCase):
         self.assertTrue(models.SimpleObject.objects.filter(id=simple.id))
 
 
-@override_settings(DEFAULT_BASE_CLASS='parent_swap.tests.parent_app.models.SimpleParent')
+@override_settings(DEFAULT_BASE_MODEL='parent_swap.tests.parent_app.models.SimpleParent')
 class TestConfiguredBaseClass(AppReloadTestCase):
     """
     Tests swappable BaseClass configured: SimpleParent

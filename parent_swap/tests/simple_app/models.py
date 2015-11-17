@@ -1,9 +1,9 @@
 from django.db import models
 
-from parent_swap.swap import BaseClass
+from parent_swap.swap import BaseModel
 
 
-class SimpleObject(BaseClass):
+class SimpleObject(BaseModel):
     """
     Basic object inheriting from an abstract base class
     """
