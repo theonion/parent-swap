@@ -9,4 +9,5 @@ install:
   - travis_retry pip install file://$(pwd)#egg=parent_swap[dev]
 script:
   - python setup.py test
+
 sudo: false
