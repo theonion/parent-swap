@@ -3,7 +3,7 @@ import os
 from setuptools import setup
 
 name = 'parent-swap'
-version = '0.0.3'
+version = '0.0.4'
 
 # allow setup.py to be run from any path
 os.chdir(
@@ -15,7 +15,7 @@ os.chdir(
 
 install_requires = [
     "django>=1.7,<1.9",
-    "djangorestframework>3.1,<3.2",
+    "djangorestframework",
     "six"
 ]
 
